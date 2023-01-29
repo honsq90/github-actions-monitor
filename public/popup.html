@@ -9,18 +9,16 @@
 
 <body>
   <div class="app">
+
+    <h1>Github Actions Monitor</h1>
+
     <form id="add-repo">
-      <div>
-        <label for="repo">Repo owner</label>
-        <input required name="owner" type="text" placeholder="Owner" />
-      </div>
-      <div>
-        <label for="name">Repo name</label>
-        <input required name="name" type="text" placeholder="Name" />
-      </div>
+      <input required name="owner" type="text" placeholder="Repo owner" /> /
+      <input required name="name" type="text" placeholder="Repo name" />
       <button type="submit">Add</button>
     </form>
 
+    <hr class="divider">
 
     <ol id="trackList">
 
