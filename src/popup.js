@@ -33,6 +33,7 @@ import redLogo from '../public/icons/red_128.png'
             statusIcon.setAttribute('src', greenLogo)
             break;
           case "queued":
+          case "pending":
           case "in_progress":
             statusIcon.setAttribute('src', orangeLogo)
             break;
