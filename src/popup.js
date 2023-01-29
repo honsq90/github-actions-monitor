@@ -14,7 +14,31 @@ import redLogo from '../public/icons/red_128.png'
   // More information on Permissions can we found at
   // https://developer.chrome.com/extensions/declare_permissions
 
+
+  const repoForm = document.getElementById("add-repo");
+
+  repoForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(repoForm);
+    chrome.storage.local.get('trackList')
+      .then(({ trackList = [] }) => {
+        trackList.push({ owner: data.get('owner'), name: data.get('name') })
+        chrome.storage.local.set({ trackList })
+        repoForm.reset()
+        window.location.reload()
+      })
+
+  })
+  refreshList();
+
+  setInterval(() => {
+    refreshList()
+  }, 5000)
+})();
+
+function refreshList() {
   const list = document.getElementById("trackList")
+  list.innerHTML = ''
   chrome.storage.local.get('trackList')
     .then(({ trackList = [] }) => {
       trackList.forEach(repo => {
@@ -49,18 +73,4 @@ import redLogo from '../public/icons/red_128.png'
       })
     })
 
-  const repoForm = document.getElementById("add-repo");
-
-  repoForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = new FormData(repoForm);
-    chrome.storage.local.get('trackList')
-      .then(({ trackList = [] }) => {
-        trackList.push({ owner: data.get('owner'), name: data.get('name') })
-        chrome.storage.local.set({ trackList })
-        repoForm.reset()
-        window.location.reload()
-      })
-
-  })
-})();
+}
