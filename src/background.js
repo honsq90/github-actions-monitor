@@ -29,7 +29,7 @@ setInterval(async () => {
       if (trackList instanceof Array) {
         if (trackList.every(({ status }) => status == "completed")) {
           buildsSuccessful()
-        } else if (trackList.filter(({ status }) => status == "in_progress").length > 0) {
+        } else if (trackList.filter(({ status }) => status == "in_progress" || status == "queued").length > 0) {
           buildInProgress()
         } else {
           buildFailed()

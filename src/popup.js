@@ -32,6 +32,7 @@ import redLogo from '../public/icons/red_128.png'
           case "completed":
             statusIcon.setAttribute('src', greenLogo)
             break;
+          case "queued":
           case "in_progress":
             statusIcon.setAttribute('src', orangeLogo)
             break;
