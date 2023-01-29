@@ -17,7 +17,7 @@ import './popup.css';
       trackList.forEach(repo => {
 
         const node = document.createElement("li");
-        const link = document.createTextNode(`${repo.owner}/${repo.name}`)
+        const link = document.createTextNode(`${repo.owner}/${repo.name} - ${repo.status}`)
         node.appendChild(link);
         list.appendChild(node);
       })

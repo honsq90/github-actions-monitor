@@ -19,6 +19,9 @@ setInterval(async () => {
           .then((status) => {
             return { status, owner: repo.owner, name: repo.name }
           })
+          .catch((status) => {
+            return { status, owner: repo.owner, name: repo.name }
+          })
         );
       return Promise.all(statusPromises)
     })
