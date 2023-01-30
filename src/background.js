@@ -36,7 +36,7 @@ setInterval(async () => {
         }
       }
 
-      chrome.storage.local.set({trackList})
+      chrome.storage.local.set({trackList, refreshTimestamp: new Date().toISOString()})
 
     })
 

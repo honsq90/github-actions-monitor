@@ -39,8 +39,16 @@ import redLogo from '../public/icons/red_128.png'
 function refreshList() {
   const list = document.getElementById("trackList")
   list.innerHTML = ''
+
+  chrome.storage.local.get('refreshTimestamp')
+    .then(({ refreshTimestamp = '' }) => {
+      const refreshTimestampText = document.getElementById("refreshTimestamp")
+      refreshTimestampText.innerHTML = refreshTimestamp
+    })
+
   chrome.storage.local.get('trackList')
     .then(({ trackList = [] }) => {
+
       trackList.forEach(repo => {
 
         const node = document.createElement("li");
