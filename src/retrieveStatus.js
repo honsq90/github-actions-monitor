@@ -27,7 +27,7 @@ export function pollStatus() {
           }
         }
 
-        chrome.storage.local.set({trackList, refreshTimestamp: new Date().toISOString()})
+        chrome.storage.local.set({trackList, refreshTimestamp: new Date().toLocaleTimeString()})
 
       })
   }, 5000)
