@@ -6,12 +6,12 @@ export function pollStatus() {
         chrome.action.setBadgeText({ text: `${trackList.length}` });
 
         const statusPromises = trackList
-          .map(repo => retrieveStatus(repo.owner, repo.name)
-            .then((status) => {
-              return { status, owner: repo.owner, name: repo.name }
+          .map(repo => retrieveLatestRun(repo.owner, repo.name)
+            .then(({status, html_url}) => {
+              return { status, html_url, owner: repo.owner, name: repo.name }
             })
-            .catch((status) => {
-              return { status, owner: repo.owner, name: repo.name }
+            .catch((error) => {
+              return { status: error, owner: repo.owner, name: repo.name }
             })
           );
         return Promise.all(statusPromises)
@@ -33,10 +33,13 @@ export function pollStatus() {
   }, 5000)
 }
 
-function retrieveStatus(owner, name) {
+function retrieveLatestRun(owner, name) {
   return fetch(`https://api.github.com/repos/${owner}/${name}/actions/runs`)
     .then(res => res.json())
-    .then(res => res.workflow_runs[0].status)
+    .then(res => {
+      console.log(res.workflow_runs[0])
+      return res.workflow_runs[0] || {}
+    })
 }
 
 

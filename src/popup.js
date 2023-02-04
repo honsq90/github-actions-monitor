@@ -55,8 +55,13 @@ function refreshList() {
         node.classList.add("statusItem")
 
         const repoSpan = document.createElement("span");
+        const repoLink = document.createElement("a")
+        repoLink.setAttribute("href", repo.html_url)
+        repoLink.setAttribute("target", "_blank")
+        repoLink.setAttribute("rel", "noreferrer noopener")
         const repoText = document.createTextNode(`${repo.owner}/${repo.name}`)
-        repoSpan.appendChild(repoText);
+        repoLink.appendChild(repoText)
+        repoSpan.appendChild(repoLink);
         const statusIcon = document.createElement("img");
         statusIcon.setAttribute('height', 12)
         statusIcon.setAttribute('width', 12)
