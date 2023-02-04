@@ -49,7 +49,13 @@ export function pollStatus() {
 function retrieveLatestRun(owner, name) {
   return fetch(`https://api.github.com/repos/${owner}/${name}/actions/runs`)
     .then(res => res.json())
-    .then(res => res.workflow_runs[0] || {})
+    .then(res => {
+      if (res.workflow_runs) {
+        return res.workflow_runs[0] || {}
+      } else {
+        return { status: res.message }
+      }
+    })
 }
 
 

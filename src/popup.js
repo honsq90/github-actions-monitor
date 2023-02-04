@@ -55,7 +55,6 @@ function refreshList() {
     .then(({ trackList = [] }) => {
 
       trackList
-        .filter(({ deleted }) => !deleted)
         .forEach(repo => {
 
           const node = document.createElement("li");
@@ -84,7 +83,7 @@ function refreshList() {
           node.appendChild(statusIcon)
           const repoText = document.createTextNode(`${repo.owner}/${repo.name}`)
 
-          // create link
+          // create link if exists
           if (repo.html_url) {
             const repoLink = document.createElement("a")
             repoLink.setAttribute("href", repo.html_url)
@@ -94,8 +93,11 @@ function refreshList() {
             repoLink.appendChild(repoText)
             node.appendChild(repoLink)
           } else {
-            repoText.classList.add("statusItem--text")
-            node.appendChild(repoText)
+            const repoSpan = document.createElement("span")
+            repoSpan.classList.add("statusItem--text")
+            repoSpan.title = repo.status
+            repoSpan.appendChild(repoText)
+            node.appendChild(repoSpan)
           }
 
           // create delete button
@@ -114,7 +116,7 @@ function refreshList() {
               chrome.storage.local.get('trackList')
                 .then(({ trackList = [] }) => {
                   const newTrackList = trackList
-                    .filter((track) => track.owner != owner && track.name != name);
+                    .filter((track) => !(track.owner == owner && track.name == name));
                   chrome.storage.local.set({ trackList: newTrackList })
                   window.location.reload()
                 })
