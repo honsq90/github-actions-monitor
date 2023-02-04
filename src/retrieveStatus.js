@@ -36,10 +36,7 @@ export function pollStatus() {
 function retrieveLatestRun(owner, name) {
   return fetch(`https://api.github.com/repos/${owner}/${name}/actions/runs`)
     .then(res => res.json())
-    .then(res => {
-      console.log(res.workflow_runs[0])
-      return res.workflow_runs[0] || {}
-    })
+    .then(res => res.workflow_runs[0] || {})
 }
 
 

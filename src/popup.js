@@ -58,14 +58,7 @@ function refreshList() {
         const node = document.createElement("li");
         node.classList.add("statusItem")
 
-        const repoSpan = document.createElement("span");
-        const repoLink = document.createElement("a")
-        repoLink.setAttribute("href", repo.html_url)
-        repoLink.setAttribute("target", "_blank")
-        repoLink.setAttribute("rel", "noreferrer noopener")
-        const repoText = document.createTextNode(`${repo.owner}/${repo.name}`)
-        repoLink.appendChild(repoText)
-        repoSpan.appendChild(repoLink);
+        // create status icon
         const statusIcon = document.createElement("img");
         statusIcon.setAttribute('height', 12)
         statusIcon.setAttribute('width', 12)
@@ -83,8 +76,17 @@ function refreshList() {
             break;
         }
 
+        // create link
+        const repoLink = document.createElement("a")
+        repoLink.setAttribute("href", repo.html_url)
+        repoLink.setAttribute("target", "_blank")
+        repoLink.setAttribute("rel", "noreferrer noopener")
+        const repoText = document.createTextNode(`${repo.owner}/${repo.name}`)
+        repoLink.appendChild(repoText)
+
+        // create list content
         node.appendChild(statusIcon)
-        node.appendChild(repoSpan)
+        node.appendChild(repoLink)
 
         list.appendChild(node);
       })
