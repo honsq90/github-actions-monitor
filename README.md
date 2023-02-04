@@ -12,8 +12,6 @@ Simple Chrome extension to monitor Github Actions statuses
 - Shows as Red when a repository has failed
 - Extension popup lists all monitored repositories and their respective statuses
 
-![](./docs/HOWTO.mp4)
-
 ## Install (WIP)
 
 ## Contribution
