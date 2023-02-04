@@ -1,15 +1,16 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Github Build Monitor
+# Github Actions Monitor
 
-My Chrome Extension
+Simple Chrome extension to monitor Github Actions statuses
 
 ## Features
 
-- Feature 1
-- Feature 2
+- Allows adding of repositories to monitor
+- Shows as Green when all repositories are successful
+- Shows as Orange when a repository is in progress
+- Shows as Red when a repository has failed
+- Extension popup lists all monitored repositories and their respective statuses
 
-## Install
-
-[**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
+## Install (WIP)
 
 ## Contribution
 
