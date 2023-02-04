@@ -45,7 +45,7 @@ li.statusItem {
   gap: 8px;
 }
 
-.statusItem > a {
+.statusItem--text {
   justify-content: flex-start;
   flex: 1;
 }
