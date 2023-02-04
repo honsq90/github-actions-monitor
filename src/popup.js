@@ -36,9 +36,9 @@ import greyLogo from '../public/icons/grey_128.png'
   })
   refreshList();
 
-  // setInterval(() => {
-  //   refreshList()
-  // }, 5000)
+  setInterval(() => {
+    refreshList()
+  }, 2500)
 })();
 
 function refreshList() {
