@@ -12,18 +12,22 @@
 
     <h1>Github Actions Monitor</h1>
 
-    <form id="add-repo">
-      <input required name="owner" type="text" placeholder="Repo owner" /> /
-      <input required name="name" type="text" placeholder="Repo name" />
-      <button type="submit">Add</button>
-    </form>
+    <div id="popupContent">
+      <section>
+        <form id="formAddRepo">
+          <input required name="owner" type="text" placeholder="Repo owner" /> /
+          <input required name="name" type="text" placeholder="Repo name" />
+          <button type="submit">Add</button>
+        </form>
+        <hr class="divider">
+        <ol id="trackList">
 
-    <hr class="divider">
-
-    <ol id="trackList">
-
-    </ol>
-    <p id="refreshTimestamp"></p>
+        </ol>
+      </section>
+      <section id="popupFooter">
+        Last refreshed at <span id="refreshTimestamp"></span>
+      </section>
+    </div>
   </div>
 
   <script src="popup.js"></script>

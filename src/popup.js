@@ -15,7 +15,7 @@ import redLogo from '../public/icons/red_128.png'
   // https://developer.chrome.com/extensions/declare_permissions
 
 
-  const repoForm = document.getElementById("add-repo");
+  const repoForm = document.getElementById("formAddRepo");
 
   repoForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -74,8 +74,8 @@ function refreshList() {
             break;
         }
 
-        node.appendChild(repoSpan)
         node.appendChild(statusIcon)
+        node.appendChild(repoSpan)
 
         list.appendChild(node);
       })
