@@ -54,7 +54,9 @@ function refreshList() {
   chrome.storage.local.get('trackList')
     .then(({ trackList = [] }) => {
 
-      trackList.forEach(repo => {
+      trackList
+      .filter(({deleted}) => !deleted)
+      .forEach(repo => {
 
         const node = document.createElement("li");
         node.classList.add("statusItem")

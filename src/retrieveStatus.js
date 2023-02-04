@@ -7,27 +7,40 @@ export function pollStatus() {
 
         const statusPromises = trackList
           .map(repo => retrieveLatestRun(repo.owner, repo.name)
-            .then(({status, html_url}) => {
-              return { status, html_url, owner: repo.owner, name: repo.name }
+            .then(({ status, html_url }) => {
+              return { status, html_url, ...repo }
             })
             .catch((error) => {
-              return { status: error, owner: repo.owner, name: repo.name }
+              return { status: error, ...repo }
             })
           );
         return Promise.all(statusPromises)
       })
-      .then(trackList => {
-        if (trackList instanceof Array) {
-          if (trackList.every(({ status }) => status == "completed")) {
+      .then(statusResponses => {
+        if (statusResponses instanceof Array) {
+          if (statusResponses.every(({ status }) => status == "completed")) {
             buildsSuccessful()
-          } else if (trackList.filter(({ status }) => status == "in_progress" || status == "queued" || status == "pending").length > 0) {
+          } else if (statusResponses.filter(({ status }) => status == "in_progress" || status == "queued" || status == "pending").length > 0) {
             buildInProgress()
           } else {
             buildFailed()
           }
         }
 
-        chrome.storage.local.set({trackList, refreshTimestamp: new Date().toLocaleTimeString()})
+        return chrome.storage.local.get('trackList')
+          .then(({ trackList = [] }) => {
+            const newTrackList = trackList.map((trackItem) => {
+              const matchingResponse = statusResponses.find((response) => response.owner == trackItem.owner && response.name == trackItem.name);
+              if (matchingResponse) {
+                return { ...trackItem, ...matchingResponse };
+              } else {
+                return trackItem;
+              }
+            });
+            chrome.storage.local.set({ trackList: newTrackList, refreshTimestamp: new Date().toLocaleTimeString() })
+
+          })
+
 
       })
   }, 5000)
