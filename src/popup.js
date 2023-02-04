@@ -22,9 +22,13 @@ import redLogo from '../public/icons/red_128.png'
     const data = new FormData(repoForm);
     chrome.storage.local.get('trackList')
       .then(({ trackList = [] }) => {
-        trackList.push({ owner: data.get('owner'), name: data.get('name') })
-        chrome.storage.local.set({ trackList })
-        repoForm.reset()
+        const owner = data.get('owner');
+        const name = data.get('name');
+        if (!trackList.find((track) => track.owner == owner && track.name == name)) {
+          trackList.push({ owner, name })
+          chrome.storage.local.set({ trackList })
+          repoForm.reset()
+        }
         window.location.reload()
       })
 
