@@ -4,6 +4,7 @@ import './popup.css';
 import greenLogo from '../public/icons/green_128.png'
 import orangeLogo from '../public/icons/orange_128.png'
 import redLogo from '../public/icons/red_128.png'
+import greyLogo from '../public/icons/grey_128.png'
 
 (function () {
   // We will make use of Storage API to get and store `count` value
@@ -35,9 +36,9 @@ import redLogo from '../public/icons/red_128.png'
   })
   refreshList();
 
-  setInterval(() => {
-    refreshList()
-  }, 5000)
+  // setInterval(() => {
+  //   refreshList()
+  // }, 5000)
 })();
 
 function refreshList() {
@@ -71,6 +72,9 @@ function refreshList() {
           case "in_progress":
             statusIcon.setAttribute('src', orangeLogo)
             break;
+          case undefined:
+            statusIcon.setAttribute('src', greyLogo)
+            break;
           default:
             statusIcon.setAttribute('src', redLogo)
             break;
@@ -84,9 +88,33 @@ function refreshList() {
         const repoText = document.createTextNode(`${repo.owner}/${repo.name}`)
         repoLink.appendChild(repoText)
 
+        // create delete button
+        const deleteButton = document.createElement("button")
+        deleteButton.textContent = "✕"
+        deleteButton.classList.add("statusItem--delete")
+        deleteButton.dataset.owner = repo.owner
+        deleteButton.dataset.name = repo.name
+        deleteButton.setAttribute("type", "button")
+
+        deleteButton.addEventListener("click", (event) => {
+          const { name, owner } = event.target.dataset
+
+          const deleteItem = confirm(`Are you sure you want to delete this ${owner}/${name}?`);
+          if (deleteItem) {
+            chrome.storage.local.get('trackList')
+              .then(({ trackList = [] }) => {
+                const newTrackList = trackList
+                  .filter((track) => track.owner != owner && track.name != name);
+                chrome.storage.local.set({ trackList: newTrackList })
+                window.location.reload()
+              })
+          }
+        })
+
         // create list content
         node.appendChild(statusIcon)
         node.appendChild(repoLink)
+        node.appendChild(deleteButton)
 
         list.appendChild(node);
       })

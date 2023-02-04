@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Github Build Monitor",
+  "name": "Github Actions Monitor",
   "version": "0.1.0",
   "description": "Monitors Github Action status",
   "icons": {
@@ -13,7 +13,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Github Build Monitor",
+    "default_title": "Github Actions Monitor",
     "default_popup": "popup.html"
   },
   "permissions": [
