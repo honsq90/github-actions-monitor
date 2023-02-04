@@ -22,7 +22,10 @@ export function pollStatus() {
             buildsSuccessful()
           } else if (statusResponses.filter(({ status }) => status == "in_progress" || status == "queued" || status == "pending").length > 0) {
             buildInProgress()
-          } else {
+          } else if (statusResponses.length == 0) {
+            nothingToShow()
+          }
+          else {
             buildFailed()
           }
         }
@@ -71,4 +74,8 @@ function buildFailed() {
 
 function buildInProgress() {
   chrome.action.setIcon({ path: "../icons/orange_128.png" })
+}
+
+function nothingToShow() {
+  chrome.action.setIcon({ path: "../icons/grey_128.png" })
 }
