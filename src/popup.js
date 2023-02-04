@@ -99,7 +99,7 @@ function refreshList() {
         deleteButton.addEventListener("click", (event) => {
           const { name, owner } = event.target.dataset
 
-          const deleteItem = confirm(`Are you sure you want to delete this ${owner}/${name}?`);
+          const deleteItem = confirm(`Are you sure you want to delete '${owner}/${name}'?`);
           if (deleteItem) {
             chrome.storage.local.get('trackList')
               .then(({ trackList = [] }) => {
