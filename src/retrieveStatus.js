@@ -8,10 +8,10 @@ export function pollStatus() {
         const statusPromises = trackList
           .map(repo => retrieveLatestRun(repo.owner, repo.name)
             .then(({ status, html_url }) => {
-              return { status, html_url, ...repo }
+              return { ...repo, status, html_url }
             })
             .catch((error) => {
-              return { status: error, ...repo }
+              return { ...repo, status: error }
             })
           );
         return Promise.all(statusPromises)

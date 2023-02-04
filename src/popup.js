@@ -38,7 +38,7 @@ import greyLogo from '../public/icons/grey_128.png'
 
   setInterval(() => {
     refreshList()
-  }, 2500)
+  }, 5000)
 })();
 
 function refreshList() {
@@ -89,6 +89,7 @@ function refreshList() {
             repoLink.setAttribute("href", repo.html_url)
             repoLink.setAttribute("target", "_blank")
             repoLink.setAttribute("rel", "noreferrer noopener")
+            repoLink.title = repo.status
             repoLink.classList.add("statusItem--text")
             repoLink.appendChild(repoText)
             node.appendChild(repoLink)
